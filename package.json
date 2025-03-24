@@ -1,0 +1,31 @@
+{
+  "name": "linksai",
+  "version": "1.0.0",
+  "description": "AI-powered agent for automating link building outreach",
+  "main": "src/backend/index.js",
+  "scripts": {
+    "start": "node src/backend/index.js",
+    "dev": "nodemon src/backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "link-building",
+    "outreach",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openai/api": "^1.0.0",
+    "@resend/resend": "^1.0.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "puppeteer": "^21.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinksAI - Automated Link Building Outreach</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Links<span>AI</span></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#dashboard" class="active">Dashboard</a></li>
+          <li><a href="#search">Search</a></li>
+          <li><a href="#outreach">Outreach</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="dashboard" class="container">
+      <div class="dashboard-header">
+        <h2>Dashboard</h2>
+        <div class="dashboard-actions">
+          <button id="new-search-btn" class="btn btn-primary">New Search</button>
+        </div>
+      </div>
+
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <h3>Websites Found</h3>
+          <p class="stat-number">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Emails Sent</h3>
+          <p class="stat-number">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Responses</h3>
+          <p class="stat-number">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Deals Closed</h3>
+          <p class="stat-number">0</p>
+        </div>
+      </div>
+
+      <div class="dashboard-tables">
+        <div class="recent-websites">
+          <h3>Recent Websites</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Website</th>
+                  <th>DR</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-websites-table">
+                <tr class="empty-state">
+                  <td colspan="5">No websites found. Start a new search!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="recent-emails">
+          <h3>Recent Emails</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Website</th>
+                  <th>Type</th>
+                  <th>Sent</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-emails-table">
+                <tr class="empty-state">
+                  <td colspan="5">No emails sent yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="search" class="container hidden">
+      <h2>Search for Websites</h2>
+      
+      <div class="search-form">
+        <div class="form-group">
+          <label for="niche-input">Niche</label>
+          <input type="text" id="niche-input" placeholder="e.g., interior design, fitness, travel">
+        </div>
+        
+        <div class="form-group">
+          <label for="limit-input">Results Limit</label>
+          <input type="number" id="limit-input" value="10" min="1" max="50">
+        </div>
+        
+        <div class="form-group">
+          <label for="dr-threshold">Minimum DR</label>
+          <input type="number" id="dr-threshold" value="30" min="0" max="100">
+        </div>
+        
+        <button id="search-btn" class="btn btn-primary">Search</button>
+      </div>
+      
+      <div id="search-results" class="hidden">
+        <h3>Search Results</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Website</th>
+                <th>DR</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="search-results-table"></tbody>
+          </table>
+        </div>
+        
+        <div class="search-actions">
+          <button id="save-all-btn" class="btn btn-secondary">Save All</button>
+          <button id="email-all-btn" class="btn btn-primary">Email All</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="outreach" class="container hidden">
+      <h2>Email Outreach</h2>
+      
+      <div class="outreach-filters">
+        <div class="form-group">
+          <label for="status-filter">Status</label>
+          <select id="status-filter">
+            <option value="all">All</option>
+            <option value="sent">Sent</option>
+            <option value="replied">Replied</option>
+            <option value="negotiating">Negotiating</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="dr-filter">Min DR</label>
+          <input type="number" id="dr-filter" value="0" min="0" max="100">
+        </div>
+        
+        <button id="apply-filters-btn" class="btn btn-secondary">Apply Filters</button>
+      </div>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Website</th>
+              <th>DR</th>
+              <th>Last Contact</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="outreach-table">
+            <tr class="empty-state">
+              <td colspan="5">No outreach campaigns found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="settings" class="container hidden">
+      <h2>Settings</h2>
+      
+      <div class="settings-form">
+        <div class="form-group">
+          <h3>API Keys</h3>
+          
+          <div class="api-key-group">
+            <label for="supabase-url">Supabase URL</label>
+            <input type="text" id="supabase-url" placeholder="https://your-project.supabase.co">
+          </div>
+          
+          <div class="api-key-group">
+            <label for="supabase-key">Supabase Key</label>
+            <input type="password" id="supabase-key" placeholder="your-supabase-key">
+          </div>
+          
+          <div class="api-key-group">
+            <label for="resend-key">Resend API Key</label>
+            <input type="password" id="resend-key" placeholder="your-resend-api-key">
+          </div>
+          
+          <div class="api-key-group">
+            <label for="ahrefs-key">Ahrefs API Key</label>
+            <input type="password" id="ahrefs-key" placeholder="your-ahrefs-api-key">
+          </div>
+          
+          <div class="api-key-group">
+            <label for="openai-key">OpenAI API Key</label>
+            <input type="password" id="openai-key" placeholder="your-openai-api-key">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <h3>Outreach Settings</h3>
+          
+          <div class="setting-group">
+            <label for="dr-threshold-setting">Minimum DR Threshold</label>
+            <input type="number" id="dr-threshold-setting" value="30" min="0" max="100">
+          </div>
+          
+          <div class="setting-group">
+            <label for="email-delay">Email Follow-up Delay (hours)</label>
+            <input type="number" id="email-delay" value="24" min="1" max="168">
+          </div>
+          
+          <div class="setting-group">
+            <label for="max-followups">Maximum Follow-ups</label>
+            <input type="number" id="max-followups" value="2" min="0" max="5">
+          </div>
+        </div>
+        
+        <button id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 LinksAI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Modal for email preview -->
+  <div id="email-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>Email Preview</h3>
+      
+      <div class="email-preview">
+        <div class="email-header">
+          <div class="email-field">
+            <label>To:</label>
+            <span id="email-to"></span>
+          </div>
+          <div class="email-field">
+            <label>Subject:</label>
+            <span id="email-subject"></span>
+          </div>
+        </div>
+        
+        <div class="email-body" id="email-body"></div>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="edit-email-btn" class="btn btn-secondary">Edit</button>
+        <button id="send-email-btn" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
